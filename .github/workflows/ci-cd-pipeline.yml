@@ -44,7 +44,7 @@ jobs:
 
     - name: Create S3 bucket (if not exists)
       run: |
-        aws s3 ls "s3://my-bucket-name" || aws s3 mb "s3://my-bucket-name"
+        aws s3 ls "s3://bluechip" || aws s3 mb "s3://bluechip"
 
     - name: Create Elastic Beanstalk application (if not exists)
       run: |
@@ -57,6 +57,6 @@ jobs:
     - name: Deploy to AWS Elastic Beanstalk
       run: |
         zip -r application.zip .
-        aws s3 cp application.zip s3://my-bucket-name/application.zip
+        aws s3 cp application.zip s3://bluechip/application.zip
         aws elasticbeanstalk create-application-version --application-name my-app --version-label v1 --source-bundle S3Bucket=my-bucket-name,S3Key=application.zip
         aws elasticbeanstalk update-environment --application-name my-app --environment-name my-env --version-label v1
